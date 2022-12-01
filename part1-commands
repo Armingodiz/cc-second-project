@@ -1,0 +1,7 @@
+sudo docker run -it alpine:latest
+    / # apk add curl
+docker ps
+sudo docker commit 7d14990c60ce awrmin/my-curl
+docker push awrmin/my-curl
+docker pull awrmin/my-curl
+docker run awrmin/my-curl curl google.com

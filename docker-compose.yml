@@ -1,0 +1,30 @@
+version: '3'
+services:
+  server:
+    image: awrmin/crypto-server
+    depends_on:
+      - redis
+    hostname: server
+    working_dir: /root/
+    environment:
+      - PORT=3000
+      - REDIS_TIMEOUT=false
+    networks:
+      - default
+    ports:
+      - '3000:3000'
+  redis:
+    image: redis:alpine
+    container_name: redis_db
+    command: redis-server --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data:/data
+    restart: always
+    networks:
+      - default
+networks:
+  default:
+    external:
+      name: cc_project
