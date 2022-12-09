@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-config # this name will be used to address mongo-url in other files
+data:
+  service_port: 3000
+  redis_timeout: 5

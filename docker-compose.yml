@@ -8,7 +8,7 @@ services:
     working_dir: /root/
     environment:
       - PORT=3000
-      - REDIS_TIMEOUT=false
+      - REDIS_TIMEOUT=5
     networks:
       - default
     ports:

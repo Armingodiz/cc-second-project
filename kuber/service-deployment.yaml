@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-deployment
+  labels:
+    app: service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: service # every pod that its lable be equal with this will be considered as replica for this app (service sends load to it)
+  template:
+    metadata:
+      labels:
+        app: service # it must be equal to mathLables defined above otherwise created pod from this template is useless
+    spec:
+      containers:
+      - name: service
+        image: awrmin/crypto-server
+        ports:
+        - containerPort: 3000 # this is the port aour app listenning on 
+        env: # jist like what we did for mongo.yaml, names are env variables which we want in our app image
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: service-config
+              key: service_port
+        - name: REDIS_TIMEOUT 
+          valueFrom:
+            configMapKeyRef:
+              name: service-config
+              key: redis_timeout
